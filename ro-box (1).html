@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0F2942">
+<title>RO Box Directory – PTFI PPLi</title>
+<style>
+:root{
+  --navy:#0F2942;--navy2:#1A3F63;
+  --teal:#0B9E8A;--teal2:#0DCFB4;
+  --surface:#F4F6F9;--card:#FFFFFF;
+  --text1:#0F2942;--text2:#5A6A7A;--text3:#96A5B3;
+  --border:#E4EAF0;--radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--surface);color:var(--text1);min-height:100vh;}
+
+/* ── HEADER ── */
+.hdr{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  padding:10px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:20;
+  box-shadow:0 2px 12px rgba(15,41,66,.3);
+  min-height:56px;
+}
+.hdr-left{display:flex;align-items:center;gap:10px;}
+.hdr-back{
+  width:34px;height:34px;border-radius:9px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.2);transition:background .15s;flex-shrink:0;
+}
+.hdr-back:active{background:rgba(255,255,255,.15)}
+.hdr-back a{display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.hdr-title{color:#fff;}
+.hdr-title .tag{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.5);margin-bottom:2px}
+.hdr-title .sys{font-size:13px;font-weight:600;letter-spacing:.02em}
+.hdr-right{text-align:right;}
+.hdr-right .tag{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.5);margin-bottom:2px}
+.hdr-right .sys{font-size:13px;font-weight:600;color:#fff;letter-spacing:.02em}
+
+.wrap{flex:1;padding:16px;max-width:520px;margin:0 auto;width:100%}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  border-radius:20px;padding:20px 20px 18px;margin-bottom:16px;
+  color:#fff;position:relative;overflow:hidden;
+}
+.hero::before{content:"";position:absolute;right:-24px;top:-24px;width:130px;height:130px;border-radius:50%;background:var(--teal);opacity:.12;}
+.hero::after{content:"";position:absolute;right:16px;top:24px;width:70px;height:70px;border-radius:50%;background:var(--teal2);opacity:.15;}
+.hero-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;opacity:.55;margin-bottom:4px}
+.hero-title{font-size:22px;font-weight:700;letter-spacing:.3px;line-height:1}
+.hero-sub{font-size:12px;opacity:.65;margin-top:4px;line-height:1.4}
+
+/* ── FILTER BAR ── */
+.filter-bar{
+  background:var(--card);border-radius:var(--radius);padding:12px 14px;
+  margin-bottom:14px;box-shadow:0 1px 4px rgba(15,41,66,.08),0 0 0 1px var(--border);
+}
+.filter-panel{width:100%;}
+.filter-chips{display:flex;gap:6px;flex-wrap:wrap;width:100%;}
+.chip{
+  padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;
+  border:1.5px solid var(--border);background:var(--surface);color:var(--text2);
+  transition:all .15s;user-select:none;
+}
+.chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.chip.blue.active{background:#154360;border-color:#154360;}
+.chip.yellow.active{background:#8A6400;border-color:#8A6400;}
+.chip.black.active{background:#222;border-color:#222;}
+.chip.red.active{background:#922B21;border-color:#922B21;}
+.chip.green.active{background:#0B7A45;border-color:#0B7A45;}
+
+/* ── FILTER MODE TABS ── */
+.filter-tabs{display:flex;gap:4px;width:100%;background:var(--surface);border-radius:10px;padding:3px;margin-bottom:10px;}
+.ftab{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:7px 6px;border-radius:8px;font-size:11px;font-weight:700;color:var(--text2);
+  cursor:pointer;transition:all .15s;user-select:none;
+}
+.ftab svg{width:12px;height:12px;flex-shrink:0;}
+.ftab.active{background:var(--card);color:var(--navy);box-shadow:0 1px 3px rgba(15,41,66,.12);}
+
+/* ── SEARCH BOX (Location / Serial No) ── */
+.search-box{
+  display:flex;align-items:center;gap:8px;width:100%;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:10px;
+  padding:9px 12px;
+}
+.search-box svg{width:15px;height:15px;color:var(--text3);flex-shrink:0;}
+.search-box input{
+  border:none;background:transparent;outline:none;flex:1;min-width:0;
+  font-size:13px;color:var(--text1);font-family:inherit;
+}
+.search-box input::placeholder{color:var(--text3);}
+.search-clear{
+  width:18px;height:18px;border-radius:50%;background:var(--border);color:var(--text2);
+  display:none;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;
+}
+.search-clear svg{width:9px;height:9px;color:var(--text2);}
+.search-box.has-value .search-clear{display:flex;}
+
+/* ── SECTION HEADER ── */
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:0 0 10px;
+}
+.section-title{font-size:11px;font-weight:700;color:var(--text2);
+  text-transform:uppercase;letter-spacing:.08em}
+.section-count{font-size:11px;color:var(--text3);}
+
+/* ── RO BOX CARDS ── */
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+
+.ro-card{
+  background:var(--card);border-radius:16px;padding:0;overflow:hidden;
+  box-shadow:0 1px 4px rgba(15,41,66,.08),0 0 0 1px var(--border);
+  position:relative;transition:transform .15s,box-shadow .15s;
+}
+.ro-card:active{transform:scale(.98);}
+
+/* Color stripe top */
+.ro-card-stripe{height:5px;width:100%;}
+
+.ro-card-body{padding:12px 12px 10px;}
+
+/* Tags row */
+.ro-card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.tag-pill{
+  font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.tag-waste{background:#E6F7EF;color:#0B7A45;}
+.tag-waste.hazardous{background:#FEECEC;color:#C0392B;}
+.tag-type{background:#EAF3FE;color:#1A5276;}
+
+/* Box SVG illustration */
+.box-illustration{
+  width:100%;height:72px;
+  display:flex;align-items:center;justify-content:center;
+  margin:4px 0 8px;
+}
+
+.ro-card-name{font-size:12px;font-weight:700;color:var(--text1);line-height:1.3;margin-bottom:6px;}
+.ro-card-desc{font-size:11px;color:var(--text2);line-height:1.4;margin-bottom:10px;}
+
+/* Stats row */
+.ro-stats{display:flex;gap:0;border-top:1px solid var(--border);margin:0 -12px;padding:8px 12px 0;}
+.ro-stat{flex:1;text-align:center;}
+.ro-stat + .ro-stat{border-left:1px solid var(--border);}
+.ro-stat .n{font-size:18px;font-weight:800;color:var(--text1);line-height:1;}
+.ro-stat .unit{font-size:10px;font-weight:600;color:var(--text2);margin-left:1px;}
+.ro-stat .l{font-size:9px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:.05em;}
+
+/* Card footer — requested + detail CTA, unified block */
+.card-footer{
+  margin:8px -12px -10px;border-radius:0 0 16px 16px;overflow:hidden;
+}
+.requested-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:7px 12px 6px;
+}
+.req-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;opacity:.75;}
+.req-value{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;}
+.req-value .unit{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;margin-left:2px;opacity:.75;}
+
+.detail-row{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  padding:6px 12px 7px;border-top:1px solid rgba(15,41,66,.09);
+}
+.detail-meta{display:flex;align-items:center;gap:9px;min-width:0;}
+.detail-meta span{display:flex;align-items:center;gap:3px;font-size:9.5px;font-weight:700;white-space:nowrap;}
+.detail-meta svg{width:10px;height:10px;flex-shrink:0;opacity:.85;}
+.detail-cta{
+  display:flex;align-items:center;gap:1px;font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;opacity:.85;flex-shrink:0;
+}
+.detail-cta svg{width:11px;height:11px;}
+
+/* ── NO RESULTS ── */
+.no-result{
+  background:var(--card);border-radius:var(--radius);padding:36px 20px;
+  text-align:center;box-shadow:0 1px 3px rgba(15,41,66,.07),0 0 0 1px var(--border);
+  margin-bottom:12px;
+}
+.no-result-icon{font-size:40px;margin-bottom:10px;}
+.no-result-title{font-size:16px;font-weight:600;margin-bottom:6px;}
+.no-result-sub{font-size:13px;color:var(--text2);line-height:1.5}
+
+/* ── SUMMARY BAR ── */
+.summary-bar{
+  background:var(--card);border-radius:var(--radius);
+  margin-bottom:14px;box-shadow:0 1px 4px rgba(15,41,66,.08),0 0 0 1px var(--border);
+  overflow:hidden;
+}
+.summary-row{display:flex;}
+.summary-cell{flex:1;padding:11px 8px;text-align:center;border-right:1px solid var(--border);}
+.summary-cell:last-child{border-right:none;}
+.summary-n{font-size:18px;font-weight:800;color:var(--text1);}
+.summary-l{font-size:9px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:.05em;}
+
+/* ── FOOTER ── */
+.footer-note{text-align:center;font-size:10px;color:var(--text3);padding:8px 0 24px;line-height:1.7}
+
+.ro-card{cursor:pointer;}
+
+/* ── LOCATION MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(15,41,66,.45);
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto;}
+.modal-sheet{
+  background:var(--card);width:100%;max-width:520px;
+  border-radius:20px 20px 0 0;max-height:82vh;display:flex;flex-direction:column;
+  transform:translateY(100%);transition:transform .25s cubic-bezier(.32,.72,0,1);
+  box-shadow:0 -8px 30px rgba(15,41,66,.25);
+}
+.modal-overlay.open .modal-sheet{transform:translateY(0);}
+.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--border);margin:8px auto 0;flex-shrink:0;}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 18px 10px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.modal-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;}
+.modal-title{font-size:15px;font-weight:800;color:var(--text1);}
+.modal-close{
+  width:28px;height:28px;border-radius:9px;background:var(--surface);
+  display:flex;align-items:center;justify-content:center;color:var(--text2);
+  flex-shrink:0;cursor:pointer;transition:background .15s;
+}
+.modal-close:active{background:var(--border);}
+.modal-list{overflow-y:auto;padding:2px 14px 16px;-webkit-overflow-scrolling:touch;}
+.loc-item{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:8px 4px;border-bottom:1px solid var(--border);
+}
+.loc-item:last-child{border-bottom:none;}
+.loc-no{
+  width:22px;height:22px;border-radius:6px;background:var(--surface);color:var(--text2);
+  font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.loc-info{flex:1;min-width:0;}
+.loc-specific{font-size:12.5px;font-weight:700;color:var(--text1);line-height:1.35;}
+.loc-meta{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4;}
+.loc-meta b{color:var(--text2);font-weight:600;}
+.loc-empty{padding:24px 10px;text-align:center;font-size:12.5px;color:var(--text3);}
+
+/* Compact stat strip under header */
+.modal-stats{display:flex;gap:8px;padding:10px 18px 0;flex-shrink:0;}
+.modal-stat{
+  flex:1;display:flex;align-items:center;gap:7px;
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:7px 10px;
+}
+.modal-stat svg{width:14px;height:14px;color:var(--text3);flex-shrink:0;}
+.modal-stat .msv{font-size:14px;font-weight:800;color:var(--text1);line-height:1;font-variant-numeric:tabular-nums;}
+.modal-stat .msl{font-size:8.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:1px;}
+
+/* Box number chips inside modal */
+.boxno-section{padding:14px 18px 2px;flex-shrink:0;}
+.boxno-label{
+  font-size:10px;font-weight:700;color:var(--text2);text-transform:uppercase;
+  letter-spacing:.07em;margin-bottom:7px;display:flex;align-items:center;gap:5px;
+}
+.boxno-label svg{width:11px;height:11px;color:var(--teal);flex-shrink:0;}
+.boxno-chips{display:flex;flex-wrap:wrap;gap:5px;}
+.boxno-chip{
+  font-size:11px;font-weight:700;padding:4px 9px;border-radius:8px;
+  background:var(--surface);border:1px solid var(--border);color:var(--text1);
+  font-variant-numeric:tabular-nums;
+}
+.modal-divider{height:1px;background:var(--border);margin:12px 18px 0;flex-shrink:0;}
+.loc-section-label{
+  padding:12px 18px 6px;font-size:10px;font-weight:700;color:var(--text2);
+  text-transform:uppercase;letter-spacing:.07em;flex-shrink:0;
+  display:flex;align-items:center;gap:5px;
+}
+.loc-section-label svg{width:11px;height:11px;color:var(--teal);flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="hdr-back">
+      <a href="index.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hdr-title">
+      <div class="tag">Waste Management</div>
+      <div class="sys">RO Box Directory</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="tag">PPLi · PTFI</div>
+    <div class="sys">Smelter &amp; PMR</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Inventory Data</div>
+    <div class="hero-title">Roll Of (RO) Box</div>
+    <div class="hero-sub">Non-Hazardous &amp; Hazardous collecting containers — track availability &amp; placement</div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-bar">
+    <div class="summary-row" id="summary-row">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <div class="filter-tabs" id="filter-tabs">
+      <div class="ftab active" data-mode="color">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        Color
+      </div>
+      <div class="ftab" data-mode="location">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        Location
+      </div>
+      <div class="ftab" data-mode="serial">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 2.7 21 11.1a2 2 0 0 1 0 2.8l-7 7a2 2 0 0 1-2.8 0L2.7 12.4a2 2 0 0 1-.6-1.5V4.4a1.7 1.7 0 0 1 1.7-1.7h6.5c.6 0 1.1.2 1.5.6Z"/><circle cx="7.3" cy="7.3" r="1.4" fill="currentColor" stroke="none"/></svg>
+        Serial No
+      </div>
+    </div>
+
+    <div class="filter-panel" id="panel-color">
+      <div class="filter-chips">
+        <div class="chip active" data-filter="all">All</div>
+        <div class="chip blue" data-filter="Blue">🔵 Blue</div>
+        <div class="chip yellow" data-filter="Yellow">🟡 Yellow</div>
+        <div class="chip black" data-filter="Black">⚫ Black</div>
+        <div class="chip red" data-filter="Red">🔴 Red</div>
+        <div class="chip green" data-filter="Green">🟢 Green</div>
+      </div>
+    </div>
+
+    <div class="filter-panel" id="panel-location" style="display:none">
+      <div class="search-box" id="box-location">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="search-location" placeholder="Cari Main Area, Owner, atau Specific Area…">
+        <div class="search-clear" id="clear-location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+      </div>
+    </div>
+
+    <div class="filter-panel" id="panel-serial" style="display:none">
+      <div class="search-box" id="box-serial">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="search-serial" placeholder="Cari nomor seri, misal 9418…" inputmode="numeric">
+        <div class="search-clear" id="clear-serial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION HEADER -->
+  <div class="section-head">
+    <div class="section-title">RO Box Inventory</div>
+    <div class="section-count" id="visible-count"></div>
+  </div>
+
+  <!-- CARDS GRID -->
+  <div class="cards-grid" id="cards-grid">
+    <!-- filled by JS -->
+  </div>
+
+  <div class="footer-note">
+    RO Box Inventory · PTFI PPLi Smelter &amp; PMR<br>
+    Roll Of Box – Non &amp; Hazardous Waste Collecting
+  </div>
+</div>
+
+<!-- LOCATION MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-sheet" id="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-eyebrow" id="modal-eyebrow">RO Box</div>
+        <div class="modal-title" id="modal-title">Box Detail</div>
+      </div>
+      <div class="modal-close" id="modal-close">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </div>
+    </div>
+    <div class="modal-stats" id="modal-stats"></div>
+    <div class="boxno-section" id="boxno-section">
+      <div class="boxno-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 2.7 21 11.1a2 2 0 0 1 0 2.8l-7 7a2 2 0 0 1-2.8 0L2.7 12.4a2 2 0 0 1-.6-1.5V4.4a1.7 1.7 0 0 1 1.7-1.7h6.5c.6 0 1.1.2 1.5.6Z"/><circle cx="7.3" cy="7.3" r="1.4" fill="currentColor" stroke="none"/></svg>
+        Registered Box Numbers
+      </div>
+      <div class="boxno-chips" id="boxno-chips"></div>
+    </div>
+    <div class="modal-divider"></div>
+    <div class="loc-section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+      Placement Locations
+    </div>
+    <div class="modal-list" id="modal-list"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  RO BOX DATA
+//  Sesuaikan data ini dengan kondisi aktual PTFI
+// ══════════════════════════════════════════════
+const RO_BOXES = [
+  {
+    id: "RO-BLU-01",
+    color: "Blue",
+    colorHex: "#2E86C1",
+    stripeGrad: "135deg,#154360 0%,#2E86C1 100%",
+    type: "For Wood & Metal",
+    wasteCategory: "Heavy Inorganic Waste",
+    hazardous: false,
+    location: "Laydown Area / Provide Site",
+    provided: 11,
+    available: 4,
+    requested: 11,
+    badgeBg: "#D6EAF8",
+    badgeColor: "#1A5276",
+  },
+  {
+    id: "RO-YEL-01",
+    color: "Yellow",
+    colorHex: "#D4AC0D",
+    stripeGrad: "135deg,#8A6400 0%,#D4AC0D 100%",
+    type: "For Paper & Plastic",
+    wasteCategory: "Light Inorganic Waste",
+    hazardous: false,
+    location: "Laydown Area / Provide Site",
+    provided: 10,
+    available: 3,
+    requested: 10,
+    badgeBg: "#FEF9E7",
+    badgeColor: "#7D6608",
+  },
+  {
+    id: "RO-BLK-01",
+    color: "Black",
+    colorHex: "#222222",
+    stripeGrad: "135deg,#111 0%,#444 100%",
+    type: "Wood Scrap Import",
+    wasteCategory: "Imported Waste",
+    hazardous: false,
+    location: "Laydown Area / Provide Site",
+    provided: 1,
+    available: 1,
+    requested: 1,
+    badgeBg: "#EAECEE",
+    badgeColor: "#212F3D",
+  },
+  {
+    id: "RO-RED-01",
+    color: "Red",
+    colorHex: "#E74C3C",
+    stripeGrad: "135deg,#922B21 0%,#E74C3C 100%",
+    type: "For Paper & Plastic",
+    wasteCategory: "Light Inorganic Waste",
+    hazardous: true,
+    location: "Laydown Area / Provide Site",
+    provided: 2,
+    available: 3,
+    requested: 3,
+    badgeBg: "#FDEDEC",
+    badgeColor: "#922B21",
+  },
+  {
+    id: "RO-GRN-01",
+    color: "Green",
+    colorHex: "#27AE60",
+    stripeGrad: "135deg,#0B7A45 0%,#27AE60 100%",
+    type: "General Waste",
+    wasteCategory: "Non-Hazardous Waste",
+    hazardous: false,
+    location: "Laydown Area / Provide Site",
+    provided: 0,
+    available: 3,
+    requested: 1,
+    badgeBg: "#E6F7EF",
+    badgeColor: "#0B7A45",
+  },
+];
+
+// ══════════════════════════════════════════════
+//  LOCATION DATA — Waste Bin Summary per Location
+//  Kolom: n=No, m=Main Area, o=Area Owner, s=Specific Area, c=[warna RO Box]
+// ══════════════════════════════════════════════
+const LOCATIONS = [
+  {n:1,m:"Admin Building",o:"Human Resource & Business Services",s:"Admin Building",c:[]},
+  {n:2,m:"Clinic",o:"OSH",s:"Clinic / Fire Station",c:[]},
+  {n:3,m:"Warehouse",o:"Global Supply Chain",s:"Warehouse Freeport",c:[]},
+  {n:4,m:"CCB",o:"Electrical",s:"Central Control Building (CCB)",c:[]},
+  {n:5,m:"Workshop",o:"Maintenance",s:"Workshop Freeport",c:["Blue"]},
+  {n:6,m:"Warehouse",o:"Global Supply Chain",s:"Smoking Shelter Warehouse",c:["Blue"]},
+  {n:7,m:"Truck Parking",o:"Human Resource & Business Services",s:"Truck Parking (Main Gate)",c:[]},
+  {n:8,m:"Pos Security",o:"Risk Management Department",s:"Security Pos Gate 2",c:[]},
+  {n:9,m:"Car Parking",o:"Human Resource & Business Services",s:"Car Parking",c:[]},
+  {n:10,m:"Admin Building",o:"Human Resource & Business Services",s:"Mosque PTFI",c:[]},
+  {n:11,m:"Laboratory",o:"Technical Services",s:"Laboratory Smelter",c:[]},
+  {n:12,m:"Admin Building",o:"Human Resource & Business Services",s:"Change House",c:[]},
+  {n:13,m:"Admin Building",o:"Human Resource & Business Services",s:"Warehouse Chemical",c:[]},
+  {n:14,m:"Admin Building",o:"Human Resource & Business Services",s:"Canteen",c:[]},
+  {n:15,m:"Weighbridge",o:"Global Supply Chain",s:"Weighbridge Gate 2",c:[]},
+  {n:16,m:"EPR",o:"OSH",s:"Emergency Preparedness & Readiness (EPR)",c:[]},
+  {n:17,m:"BOO",o:"Central Services",s:"Office BOO",c:[]},
+  {n:18,m:"BOO",o:"Central Services",s:"Wika BOO",c:[]},
+  {n:19,m:"BOO",o:"ESD",s:"IGT & Haliburton BOO",c:["Blue"]},
+  {n:20,m:"Admin Building",o:"Human Resource & Business Services",s:"CMT Office",c:[]},
+  {n:21,m:"Warehouse",o:"Global Supply Chain",s:"Warehouse Yard DSV",c:[]},
+  {n:22,m:"Pos Security",o:"Risk Management Department",s:"Pos Security Gate 1",c:[]},
+  {n:23,m:"Maintenance",o:"Global Supply Chain",s:"Laydown Maintenance",c:[]},
+  {n:24,m:"DMW",o:"Maintenance",s:"Daily Maintenance Smelter (DMW)",c:["Black"]},
+  {n:25,m:"Electrorefinery",o:"Electrorefinery",s:"Electro Refinery (ER)",c:["Black"]},
+  {n:26,m:"Electrorefinery",o:"Electrorefinery",s:"Electro Refinery (ER-Main Gate)",c:[]},
+  {n:27,m:"Electrorefinery",o:"Electrorefinery",s:"Electro Refinery (ER-Tapping Gate)",c:[]},
+  {n:28,m:"Electrorefinery",o:"Electrorefinery",s:"Electro Refinery (ER-Security Gate)",c:[]},
+  {n:29,m:"Ground Floor FSF",o:"HM-FSF",s:"Ground Floor FSF",c:[]},
+  {n:30,m:"Ground Floor FCF",o:"HM-FCF",s:"Ground Floor FCF",c:[]},
+  {n:31,m:"HM-Anode",o:"Hot Metal",s:"Anode Yard (JPP Container)",c:["Yellow"]},
+  {n:32,m:"HM-Anode",o:"Hot Metal",s:"Anode Refractory Warehouse",c:["Yellow"]},
+  {n:33,m:"HM-Anode",o:"Hot Metal",s:"Anode Casting",c:[]},
+  {n:34,m:"Hot Metal",o:"Hot Metal",s:"Container Contractor Hot Metal",c:[]},
+  {n:35,m:"Hot Metal",o:"Hot Metal",s:"Shelter Hot Metal",c:["Red"]},
+  {n:36,m:"Hot Metal",o:"Hot Metal",s:"Aminity Building",c:[]},
+  {n:37,m:"CW Utility",o:"Utility",s:"Utility Cooling Tower",c:[]},
+  {n:38,m:"HM-FCF",o:"Hot Metal",s:"Matte Storage Area",c:[]},
+  {n:39,m:"HM-Steam Dryer",o:"HM-Steam Dryer",s:"Steam Dryer",c:["Red"]},
+  {n:40,m:"Material Handling",o:"MHSC",s:"Aldzama Shelter MH (Revert Handling)",c:[]},
+  {n:41,m:"HM-FCF",o:"Hot Metal",s:"MGM Shelter",c:[]},
+  {n:42,m:"HM-FCF",o:"Hot Metal",s:"FCF",c:[]},
+  {n:43,m:"SWTP",o:"Utility",s:"SWTP",c:[]},
+  {n:44,m:"Maintenance",o:"Maintenance",s:"Container Lintech Workshop",c:[]},
+  {n:45,m:"ETP",o:"Acid Plant & ETP",s:"Clean Gypsum Container",c:[]},
+  {n:46,m:"Filter Press",o:"Acid Plant & ETP",s:"Filter Press ETP",c:[]},
+  {n:47,m:"Filter Press",o:"Acid Plant & ETP",s:"Container Aldzama ETP",c:[]},
+  {n:48,m:"Temporary Workshop",o:"Central Services",s:"Temporary Workshop Area Evaporator",c:[]},
+  {n:49,m:"SWTP",o:"Acid Plant & ETP",s:"Shelter IGT SWTP",c:[]},
+  {n:50,m:"Material Handling",o:"MHSC",s:"Shelter MH",c:[]},
+  {n:51,m:"Material Handling",o:"MHSC",s:"Pos Security Concentrate",c:[]},
+  {n:52,m:"Acid",o:"Acid Plant & ETP",s:"Converter Acid",c:[]},
+  {n:53,m:"Acid",o:"Acid Plant & ETP",s:"Strong Acid Plant (SAP)",c:[]},
+  {n:54,m:"Quarto",o:"Utility",s:"Kontainer Quarto ETP",c:[]},
+  {n:55,m:"ETP",o:"Acid Plant & ETP",s:"ETP - Clarifier",c:[]},
+  {n:56,m:"Remin",o:"Utility",s:"Remin",c:[]},
+  {n:57,m:"Cooling Tower",o:"Utility",s:"Cooling Tower Acid",c:[]},
+  {n:58,m:"Acid",o:"Acid Plant & ETP",s:"Toilet Acid Plant",c:[]},
+  {n:59,m:"Acid",o:"Acid Plant & ETP",s:"Container Acid Plant",c:[]},
+  {n:60,m:"MEW",o:"MHSC",s:"Mobile Equipment Workshop",c:[]},
+  {n:61,m:"Slag Concentrator",o:"MHSC",s:"DAF Unit SC",c:[]},
+  {n:62,m:"Slag Concentrator",o:"MHSC",s:"Reagent SC",c:[]},
+  {n:63,m:"Slag Concentrator",o:"MHSC",s:"Toilet SC Reagent",c:[]},
+  {n:64,m:"Demin Plant",o:"Utility",s:"Demin Plant",c:[]},
+  {n:65,m:"STG",o:"Hot Metal",s:"STG",c:[]},
+  {n:66,m:"ETP",o:"Acid Plant & ETP",s:"Evaporator",c:[]},
+  {n:67,m:"ETP",o:"Acid Plant & ETP",s:"Dirty Gypsum",c:[]},
+  {n:68,m:"Slag Concentrator",o:"MHSC",s:"Slag Concentrator Workshop",c:[]},
+  {n:69,m:"Slag Concentrator",o:"MHSC",s:"Shelter SC",c:[]},
+  {n:70,m:"Acid",o:"Acid Plant & ETP",s:"Pump House Acid",c:[]},
+  {n:71,m:"Slag Concentrator",o:"MHSC",s:"Slag Grinding SC",c:[]},
+  {n:72,m:"STP",o:"Utility",s:"STP",c:[]},
+  {n:73,m:"Material Handling",o:"MHSC",s:"Shelter Final Slag",c:[]},
+  {n:74,m:"Desalination Plant",o:"Maintenance",s:"Desalination Plant",c:[]},
+  {n:75,m:"Temporary Central Service",o:"Central Services",s:"Temporary Central Service Contractor Office",c:[]},
+  {n:76,m:"Pos Security",o:"Risk Management Department",s:"Pos Security Laydown D",c:[]},
+  {n:77,m:"Pond",o:"ESD",s:"Pond Haliburton Container",c:[]},
+  {n:78,m:"Pond",o:"ESD",s:"Pond IGT Container",c:[]},
+  {n:79,m:"Pos Security",o:"Risk Management Department",s:"Pos Exit Desal",c:[]},
+  {n:80,m:"FMR",o:"FMR",s:"Shelter FMR (Outside)",c:[]},
+  {n:81,m:"FMR",o:"FMR",s:"Container Subcont (Outside)",c:[]},
+  {n:82,m:"FMR",o:"FMR",s:"Car Park",c:[]},
+  {n:83,m:"FMR",o:"FMR",s:"Pos Security Weighing",c:[]},
+  {n:84,m:"FMR",o:"FMR",s:"Pos Security Gate PMR",c:[]},
+  {n:85,m:"FMR",o:"FMR",s:"ISOS PMR",c:[]},
+  {n:86,m:"FMR",o:"FMR",s:"Workshop PMR",c:[]},
+  {n:87,m:"FMR",o:"FMR",s:"Workshop GTA",c:[]},
+  {n:88,m:"FMR",o:"FMR",s:"South Reagent PMR",c:[]},
+  {n:89,m:"FMR",o:"FMR",s:"PAB (North)",c:[]},
+  {n:90,m:"FMR",o:"FMR",s:"Reagent PMR",c:[]},
+  {n:91,m:"FMR",o:"FMR",s:"Shelter MAB",c:[]},
+  {n:92,m:"FMR",o:"FMR",s:"West PAB - Container Pond",c:[]},
+  {n:93,m:"FMR",o:"FMR",s:"HSB",c:[]},
+  {n:94,m:"FMR",o:"FMR",s:"HMP Cake",c:[]},
+  {n:95,m:"FMR",o:"FMR",s:"HMP Cake West",c:[]},
+  {n:96,m:"FMR",o:"FMR",s:"Cooling Tower PMR",c:[]},
+  {n:97,m:"FMR",o:"FMR",s:"HSB Lab",c:[]},
+  {n:98,m:"FMR",o:"FMR",s:"East MPB",c:[]},
+  {n:99,m:"Motorcycle Parking",o:"Human Resource & Business Services",s:"Motorcycle Park",c:[]},
+  {n:100,m:"Pos Security",o:"Risk Management Department",s:"Pos Security M2",c:[]},
+  {n:101,m:"M2",o:"Global Supply Chain",s:"Shelter M2",c:[]},
+  {n:102,m:"M2",o:"Global Supply Chain",s:"Container M2",c:[]},
+  {n:103,m:"Jetty Wharf",o:"Jetty",s:"Shelter Jetty Wharf",c:[]},
+  {n:104,m:"DWM",o:"Jetty",s:"Daily Maintenance Workshop Jetty",c:[]},
+  {n:105,m:"Jetty Wharf",o:"Jetty",s:"Container Pelindo Jetty",c:[]},
+  {n:106,m:"Pos Security",o:"Risk Management Department",s:"Pos Security Jetty Wharf",c:[]},
+  {n:107,m:"Pos Security",o:"Risk Management Department",s:"Bima Warehouse M1",c:[]},
+  {n:108,m:"Hiace Park",o:"Human Resource & Business Services",s:"Hiace Park",c:[]},
+  {n:109,m:"Weighbridge",o:"Global Supply Chain",s:"Container Weighing Gate 2",c:[]},
+  {n:110,m:"Pos Security",o:"Risk Management Department",s:"Pos Security Substation Jetty",c:[]},
+  {n:111,m:"FMR",o:"FMR",s:"TPS B3 PMR",c:[]},
+  {n:112,m:"Material Handling",o:"MHSC",s:"Final Slag Area",c:[]},
+];
+
+// ══════════════════════════════════════════════
+//  BOX NUMBERS — nomor unit fisik RO Box per warna
+// ══════════════════════════════════════════════
+const BOX_NUMBERS = {
+  Black:  ["9418","9420"],
+  Yellow: ["9416","9417","9419","9421","9422","9423","9424","9425","9427","9428","9426"],
+  Red:    ["9441","9442","9443","9444","9445"],
+  Blue:   ["9404","9405","9406","9407","9409","9410","9411","9412","9413","9414","9415","9446"],
+  Green:  ["9401","9402","9403"],
+};
+
+// ── SVG RO BOX per warna ──
+function boxSVG(color) {
+  const cols = {
+    Blue:   { body:"#2471A3", top:"#1A5276", stripe:"#154360", rim:"#1A5276" },
+    Yellow: { body:"#D4AC0D", top:"#8A6400", stripe:"#7D6608", rim:"#8A6400" },
+    Black:  { body:"#444",    top:"#222",    stripe:"#111",    rim:"#333"    },
+    Red:    { body:"#E74C3C", top:"#922B21", stripe:"#7B241C", rim:"#922B21" },
+    Green:  { body:"#27AE60", top:"#0B7A45", stripe:"#0A6638", rim:"#0B7A45" },
+  };
+  const c = cols[color] || cols.Blue;
+  return `
+  <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="width:110px;height:60px;">
+    <!-- body -->
+    <rect x="4" y="14" width="112" height="40" rx="3" fill="${c.body}"/>
+    <!-- top rim -->
+    <rect x="4" y="12" width="112" height="6" rx="2" fill="${c.top}"/>
+    <!-- front ribs -->
+    <rect x="14" y="18" width="3" height="32" rx="1" fill="${c.stripe}" opacity=".5"/>
+    <rect x="28" y="18" width="3" height="32" rx="1" fill="${c.stripe}" opacity=".5"/>
+    <rect x="42" y="18" width="3" height="32" rx="1" fill="${c.stripe}" opacity=".5"/>
+    <rect x="56" y="18" width="3" height="32" rx="1" fill="${c.stripe}" opacity=".5"/>
+    <rect x="70" y="18" width="3" height="32" rx="1" fill="${c.stripe}" opacity=".5"/>
+    <rect x="84" y="18" width="3" height="32" rx="1" fill="${c.stripe}" opacity=".5"/>
+    <rect x="98" y="18" width="3" height="32" rx="1" fill="${c.stripe}" opacity=".5"/>
+    <!-- bottom ── feet -->
+    <rect x="10" y="50" width="20" height="5" rx="2" fill="${c.rim}"/>
+    <rect x="45" y="50" width="30" height="5" rx="2" fill="${c.rim}"/>
+    <rect x="90" y="50" width="20" height="5" rx="2" fill="${c.rim}"/>
+    <!-- bottom bar -->
+    <rect x="4" y="52" width="112" height="2" rx="1" fill="${c.rim}" opacity=".4"/>
+  </svg>`;
+}
+
+// ── Small line icons (replace emoji for a more polished look) ──
+const ICON = {
+  pin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>`,
+  tag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 2.7 21 11.1a2 2 0 0 1 0 2.8l-7 7a2 2 0 0 1-2.8 0L2.7 12.4a2 2 0 0 1-.6-1.5V4.4a1.7 1.7 0 0 1 1.7-1.7h6.5c.6 0 1.1.2 1.5.6Z"/><circle cx="7.3" cy="7.3" r="1.4" fill="currentColor" stroke="none"/></svg>`,
+  chevron:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>`,
+};
+
+// ── RENDER ──
+let activeMode   = "color";
+let activeFilter = "all";
+let queryLocation = "";
+let querySerial   = "";
+
+function render() {
+  const grid   = document.getElementById("cards-grid");
+  const count  = document.getElementById("visible-count");
+
+  let list;
+  let emptyMsg = "No box matches the selected filter.";
+
+  if (activeMode === "color") {
+    list = activeFilter === "all" ? RO_BOXES : RO_BOXES.filter(b => b.color === activeFilter);
+    emptyMsg = "No box matches the selected color filter.";
+  } else if (activeMode === "location") {
+    if (!queryLocation) {
+      list = RO_BOXES;
+    } else {
+      list = RO_BOXES.filter(b => LOCATIONS.some(l =>
+        l.c.includes(b.color) &&
+        (l.m.toLowerCase().includes(queryLocation) ||
+         l.o.toLowerCase().includes(queryLocation) ||
+         l.s.toLowerCase().includes(queryLocation))
+      ));
+      emptyMsg = `No RO Box found placed at a location matching "${queryLocation}".`;
+    }
+  } else if (activeMode === "serial") {
+    if (!querySerial) {
+      list = RO_BOXES;
+    } else {
+      list = RO_BOXES.filter(b => (BOX_NUMBERS[b.color] || []).some(no => no.toLowerCase().includes(querySerial)));
+      emptyMsg = `No RO Box found with a serial number matching "${querySerial}".`;
+    }
+  }
+
+  // Summary
+  const totalProvided   = Object.values(BOX_NUMBERS).reduce((a,arr)=>a+arr.length,0);
+  const totalAvailable  = RO_BOXES.reduce((a,b)=>a+b.available,0);
+  const totalRequested  = RO_BOXES.reduce((a,b)=>a+b.requested,0);
+  const totalTypes      = RO_BOXES.length;
+
+  document.getElementById("summary-row").innerHTML = `
+    <div class="summary-cell"><div class="summary-n">${totalTypes}</div><div class="summary-l">Types</div></div>
+    <div class="summary-cell"><div class="summary-n">${totalProvided}</div><div class="summary-l">Provided</div></div>
+    <div class="summary-cell"><div class="summary-n">${totalAvailable}</div><div class="summary-l">Available</div></div>
+    <div class="summary-cell"><div class="summary-n">${totalRequested}</div><div class="summary-l">Requested</div></div>
+  `;
+
+  count.textContent = list.length + " item" + (list.length!==1?"s":"");
+
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="no-result" style="grid-column:1/-1">
+        <div class="no-result-icon">📦</div>
+        <div class="no-result-title">No RO Box Found</div>
+        <div class="no-result-sub">${emptyMsg}</div>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(b => {
+    const wasteTag = b.hazardous
+      ? `<span class="tag-pill tag-waste hazardous">☠ Hazardous</span>`
+      : `<span class="tag-pill tag-waste">✅ Non-B3</span>`;
+    const locCount = LOCATIONS.filter(l => l.c.includes(b.color)).length;
+    const boxCount = (BOX_NUMBERS[b.color] || []).length;
+    return `
+    <div class="ro-card" data-color="${b.color}" data-hex="${b.colorHex}">
+      <div class="ro-card-stripe" style="background:linear-gradient(${b.stripeGrad})"></div>
+      <div class="ro-card-body">
+        <div class="ro-card-tags">
+          ${wasteTag}
+          <span class="tag-pill tag-type">${b.color}</span>
+        </div>
+        <div class="box-illustration">${boxSVG(b.color)}</div>
+        <div class="ro-card-name">${b.type}</div>
+        <div class="ro-card-desc">${b.wasteCategory}</div>
+        <div class="ro-stats">
+          <div class="ro-stat">
+            <div><span class="n">${boxCount}</span><span class="unit"> Unit</span></div>
+            <div class="l">Provide Site</div>
+          </div>
+          <div class="ro-stat">
+            <div><span class="n">${b.available}</span><span class="unit"> Unit</span></div>
+            <div class="l">At Laydown</div>
+          </div>
+        </div>
+        <div class="card-footer" style="background:${b.badgeBg};color:${b.badgeColor};">
+          <div class="requested-row">
+            <span class="req-label">Total Unit</span>
+            <span class="req-value">${b.requested}<span class="unit">Unit</span></span>
+          </div>
+          <div class="detail-row">
+            <div class="detail-meta">
+              <span>${ICON.pin} ${locCount}</span>
+              <span>${ICON.tag} ${boxCount}</span>
+            </div>
+            <div class="detail-cta">Detail ${ICON.chevron}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  // pasang klik listener setiap render ulang (card di-generate baru)
+  document.querySelectorAll(".ro-card").forEach(card => {
+    card.addEventListener("click", () => openLocationModal(card.dataset.color, card.dataset.hex));
+  });
+}
+
+// ── LOCATION MODAL ──
+const modalOverlay = document.getElementById("modal-overlay");
+const modalSheet   = document.getElementById("modal-sheet");
+
+function openLocationModal(color, hex) {
+  const items = LOCATIONS.filter(l => l.c.includes(color));
+  const nums  = BOX_NUMBERS[color] || [];
+
+  document.getElementById("modal-eyebrow").textContent = "RO Box · " + color;
+  document.getElementById("modal-eyebrow").style.color = hex;
+  document.getElementById("modal-title").textContent = "Box Detail";
+  document.getElementById("modal-stats").innerHTML = `
+    <div class="modal-stat">
+      ${ICON.tag}
+      <div><div class="msv">${nums.length}</div><div class="msl">Box Number</div></div>
+    </div>
+    <div class="modal-stat">
+      ${ICON.pin}
+      <div><div class="msv">${items.length}</div><div class="msl">Location</div></div>
+    </div>`;
+
+  document.getElementById("boxno-chips").innerHTML = nums.length
+    ? nums.map(no => `<span class="boxno-chip">#${no}</span>`).join("")
+    : `<span class="loc-empty" style="padding:8px 0;">Belum ada nomor unit terdaftar.</span>`;
+
+  const list = document.getElementById("modal-list");
+  list.innerHTML = items.length
+    ? items.map(it => `
+      <div class="loc-item">
+        <div class="loc-no">${it.n}</div>
+        <div class="loc-info">
+          <div class="loc-specific">${it.s}</div>
+          <div class="loc-meta"><b>${it.m}</b> · ${it.o}</div>
+        </div>
+      </div>`).join("")
+    : `<div class="loc-empty">Belum ada lokasi yang tercatat menggunakan RO Box ${color}.</div>`;
+
+  modalOverlay.classList.add("open");
+}
+
+function closeLocationModal() {
+  modalOverlay.classList.remove("open");
+}
+
+document.getElementById("modal-close").addEventListener("click", closeLocationModal);
+modalOverlay.addEventListener("click", (e) => {
+  if (e.target === modalOverlay) closeLocationModal();
+});
+
+// ── FILTER TABS (Color / Location / Serial No) ──
+document.querySelectorAll(".ftab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".ftab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    activeMode = tab.dataset.mode;
+    document.getElementById("panel-color").style.display    = activeMode === "color"    ? "" : "none";
+    document.getElementById("panel-location").style.display = activeMode === "location" ? "" : "none";
+    document.getElementById("panel-serial").style.display    = activeMode === "serial"    ? "" : "none";
+    render();
+  });
+});
+
+// ── FILTER: COLOR CHIPS ──
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    activeFilter = chip.dataset.filter;
+    render();
+  });
+});
+
+// ── FILTER: LOCATION SEARCH ──
+const inputLocation = document.getElementById("search-location");
+const boxLocation    = document.getElementById("box-location");
+inputLocation.addEventListener("input", (e) => {
+  queryLocation = e.target.value.trim().toLowerCase();
+  boxLocation.classList.toggle("has-value", queryLocation.length > 0);
+  render();
+});
+document.getElementById("clear-location").addEventListener("click", () => {
+  inputLocation.value = "";
+  queryLocation = "";
+  boxLocation.classList.remove("has-value");
+  render();
+});
+
+// ── FILTER: SERIAL NO SEARCH ──
+const inputSerial = document.getElementById("search-serial");
+const boxSerial    = document.getElementById("box-serial");
+inputSerial.addEventListener("input", (e) => {
+  querySerial = e.target.value.trim().toLowerCase();
+  boxSerial.classList.toggle("has-value", querySerial.length > 0);
+  render();
+});
+document.getElementById("clear-serial").addEventListener("click", () => {
+  inputSerial.value = "";
+  querySerial = "";
+  boxSerial.classList.remove("has-value");
+  render();
+});
+
+// ── INIT ──
+render();
+</script>
+</body>
+</html>
